@@ -1,6 +1,6 @@
 
 test= [2,0,1,3, 6,7,8,4,5]
-
+#mySort function takes in an array of integers in any permutation order of [0,n-1] and sorts it 
 def mySort(arr):
     def mySwitch(x,y):
         temp = arr[y]
