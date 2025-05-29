@@ -1,0 +1,16 @@
+import math
+x = 7557
+def ispalindrome(x):
+    if x <= 0:
+        return 0
+    num_digits = math.floor(math.log10(x)) +1
+    msk_digits = 10 **(num_digits -1)
+    for i in range(msk_digits//2):
+        if x //msk_digits != x % 10:
+            return False
+        x %= 10
+        x //= msk_digits
+        msk_digits //=100
+    return True
+if ispalindrome(x):
+    print( "HALLELUIA")
