@@ -52,12 +52,16 @@ class NodeList:
 
     def root(self,p):
         i=p
-        cur = self.dic[i]
+        curRoot = self.dic[i]
+        compress = set()
         while self.dic[i]!= i:
-            print(f"analyzing index of {i} with root= {cur}")
+            print(f"analyzing index of {i} with root= {curRoot}")
+            compress.add(i)
             i= self.dic[i]
-            cur = self.dic[i]
+            curRoot = self.dic[i]
         if self.dic[i]== i:
+            for c in compress:
+                self.dic[c] = i
             return i
         
     def union(self,p, q):
@@ -78,6 +82,6 @@ def main():
     print(f"what is the root of 1? {newList.root(1)}")
     print(f"Update my list to union 1 and 4 {newList.union(1, 4)}")
     print(f"what is the root of 1 now?{newList.root(1)}")
-
+    print(newList.dic)
 if __name__ == "__main__":
     main()
