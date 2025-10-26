@@ -23,6 +23,7 @@ print("locals()['x'] is x? ->", locals()["x"] is x)
 
 # show the locals() dict keys (these are the *names* stored in the current frame)
 print("\nlocals() keys ->", list(locals().keys()))
+print(list(locals()))
 
 # reference count:
 # sys.getrefcount(obj) returns the refcount +1 because passing it into the function
