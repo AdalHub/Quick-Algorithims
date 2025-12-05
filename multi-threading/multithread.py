@@ -1,27 +1,41 @@
 import time
 import threading
 import queue
-def prodoucer(queue):
-    for i in range(10):
-        item = f"\\\ {i} ///" 
-        queue.put(item)
-        print(f"production of item {item}")
-        time.sleep(1)
-    queue.put(None)
-def consumer(queue):
-    while True:
-        item= queue.get()
-        if not item:
-            break
-        print(f"CONSUMING item: {item}")
-        time.sleep(2)
+from multiprocessing import Process
+
+
+
+def cpu_bound_task(n):
+    counter=0
+    #we start a large counter in order to simulate a cpu intensive task
+    for _ in range(n):
+        counter+=1
+
 def main():
-    q = queue.Queue()
-    t1 = threading.Thread(target = prodoucer, args=(q,))
-    t2 = threading.Thread(target = consumer, args=(q,))
-    t1.start()
-    t2.start()
-    t1.join()
-    t2.join()
+    #no threading applied to cpu intensive task
+    initial_time= time.time()
+    for _ in range(4):
+        cpu_bound_task(10**7)
+    print(f"task took {time.time()-initial_time} WITH OUT threading" )
+
+    #cpu intensive task with threading
+    initial_time = time.time()
+    threads= [threading.Thread(target= cpu_bound_task, args=(10**7,)) for _ in range(4)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    print(f"task took {time.time()-initial_time} with threading" )
+
+    #cpu intensive task with multiprocessing
+    initial_time = time.time()
+    processes= [Process(target= cpu_bound_task, args=(10**7,)) for _ in range(4)]
+    for process in processes:
+        process.start()
+    for process in processes:
+        process.join()
+    print(f"task took {time.time()-initial_time} with multi-processing" )
+    print("as one may notice threading did not help in fact it might've made our program slower")
+    print("but with multi-processing we are able to instantiate multiple interpreters and use more than 1 core")
 if __name__ == "__main__":
     main()
