@@ -51,10 +51,24 @@ print(first)
 second= add_two_list()
 print(second)
 
-#but in this code we avoid referencing the same array stored in __default__ by assigning the default argument to None
+#but in this code we avoid referencing the same array stored in __default__ by assigning the default argument to Nones
 def add_two_list(x= None):
     return [2] if not x else x.append(2) 
 first= add_two_list()
 print(first)
 second= add_two_list()
 print(second)
+
+stones = [1,2,2,3,4,4,5]
+def list_sign_change(my_list=[]):
+    for i in range(len(my_list)):
+        my_list[i]*=-1
+list_sign_change(stones)
+print(stones)
+
+tasks = ["a","a","a","b","b","c"]
+from collections import Counter
+tasks= Counter(tasks)
+tasks = [tasks[key]* -1 for key in tasks]
+print(tasks)
+
