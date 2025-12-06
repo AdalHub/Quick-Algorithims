@@ -44,10 +44,14 @@ def main_cpu():
 
 import requests
 
+
+
 def get_website(url):
+    if type(url) != str:
+        return "invalid input"
     cur_time= time.time()
-    response= requests.get(url, timeout=(5,10))#timeout set 5 to respond, 10 seconds to start reading
-    #data = response.text
+    requests.get(url, timeout=(5,10))#timeout set 5 to respond, 10 seconds to start reading
+    
     print(f"url:{url}\n took {time.time()-cur_time} to respond")
 
     
