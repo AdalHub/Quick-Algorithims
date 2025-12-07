@@ -45,16 +45,22 @@ class Player:
         if isinstance(other, Player):
             return self.level != other.level
         raise Exception("invalid type bruh")
+    
     def __mul__(self, other):
         if isinstance(other, Player):
             return self.level * other.level
         raise Exception("invalid type bruh")
+    
     def __truediv__(self, other):
         if isinstance(other, Player):
             return self.level / other.level
         raise Exception("invalid type bruh")
+    
+    def __getitem__(self):
+        return self.level
 
 
+    
 
 timmy= Player(10)
 johnny= Player(5)
