@@ -52,12 +52,11 @@ async def main_io():
         p.join()
     responce_times.append(f"Multiprocess time: {time.time()-initial_time}")
 
-    # Asyncio
+    # asyncio
     initial_time = time.time()
-    task1 = asyncio.create_task(get_website_async(urls[0]))  # <-- Fixed typo
-    task2 = asyncio.create_task(get_website_async(urls[1]))
-    task3 = asyncio.create_task(get_website_async(urls[2]))
-    r1, r2, r3 = await task1, await task2, await task3
+    tasks = [asyncio.create_task(get_website_async(url)) for url in urls]
+    for t in tasks:
+        await t
     responce_times.append(f"Asyncio time: {time.time()-initial_time}")
 
     print("\n=== Results ===")
